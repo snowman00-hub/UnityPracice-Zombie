@@ -3,6 +3,35 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public enum State
+    {
+        Ready,
+        Empty,
+        Reloading,
+    }
+
+    private State currentState = State.Ready;
+
+    public State CurrentState
+    {
+        get { return currentState; }
+        private set
+        {
+            currentState = value;
+            switch (currentState)
+            {
+                case State.Ready:
+                    break;
+                case State.Empty:
+                    break;
+                case State.Reloading:
+                    break;
+            }
+        }
+    }
+
+    public GunData gundata;
+
     public ParticleSystem muzzleEffect;
     public ParticleSystem shellEffect;
 
@@ -10,6 +39,11 @@ public class Gun : MonoBehaviour
     private AudioSource audioSource;
 
     public Transform firePosition;
+
+    public int ammoRemain;
+    public int magAmmo;
+
+    private float lastFireTime;
 
     private void Awake()
     {
@@ -20,26 +54,117 @@ public class Gun : MonoBehaviour
         lineRenderer.positionCount = 2;
     }
 
+    private void OnEnable()
+    {
+        ammoRemain = gundata.startAmmoRemain;
+        magAmmo = gundata.magCapacity;
+        lastFireTime = 0f;
+
+        CurrentState = State.Ready;
+    }
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        switch (currentState)
         {
-            StartCoroutine(CoShotEffect());
+            case State.Ready:
+                UpdateReady();
+                break;
+            case State.Empty:
+                UpdateEmpty();
+                break;
+            case State.Reloading:
+                UpdateReloading();
+                break;
         }
     }
 
-    private IEnumerator CoShotEffect()
+    private void UpdateReady()
     {
+
+    }
+
+    private void UpdateEmpty()
+    {
+
+    }
+
+    private void UpdateReloading()
+    {
+
+    }
+
+    private IEnumerator CoShotEffect(Vector3 hitPosition)
+    {
+        audioSource.PlayOneShot(gundata.shootClip);
+
         muzzleEffect.Play();
         shellEffect.Play();
         lineRenderer.enabled = true;
         lineRenderer.SetPosition(0, firePosition.position);
-
-        Vector3 endPos = firePosition.position + firePosition.forward * 10f;
-        lineRenderer.SetPosition(1, endPos);
+        lineRenderer.SetPosition(1, hitPosition);
 
         yield return new WaitForSeconds(0.2f);
 
         lineRenderer.enabled = false;
+    }
+
+    public void Fire()
+    {
+        if(currentState == State.Ready && Time.time > (lastFireTime + gundata.timeBetFire))
+        {
+            lastFireTime = Time.time;
+            Shoot();
+        }
+    }
+
+    public void Shoot()
+    {
+        Vector3 hitPosition = Vector3.zero;
+
+        RaycastHit hit;
+        if(Physics.Raycast(firePosition.position, firePosition.forward, 
+            out hit, gundata.fireDistance))
+        {
+            hitPosition = hit.point;
+
+            var target = hit.collider.GetComponent<IDamagable>();
+            if(target != null)
+            {
+                target.OnDamage(gundata.damage, hit.point, hit.normal);
+            }
+        }
+        else
+        {
+            hitPosition = firePosition.position + firePosition.forward * gundata.fireDistance;
+        }
+
+        StartCoroutine(CoShotEffect(hitPosition));
+
+        --magAmmo;
+        if(magAmmo == 0)
+        {
+            CurrentState = State.Empty;
+        }
+    }
+
+    public bool Reload()
+    {
+        if (ammoRemain <= 0 || currentState == State.Reloading)
+            return false;
+
+        var reloadAmmo = Mathf.Min(gundata.magCapacity - magAmmo, ammoRemain);
+        magAmmo += reloadAmmo;
+        ammoRemain -= reloadAmmo;
+
+        currentState = State.Reloading;
+        StartCoroutine(ReloadTime());
+        return true;
+    }
+
+    public IEnumerator ReloadTime()
+    {
+        yield return new WaitForSeconds(gundata.reloadTime); 
+        currentState = State.Ready;
     }
 }
