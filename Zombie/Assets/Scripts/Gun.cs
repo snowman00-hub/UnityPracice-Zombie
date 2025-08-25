@@ -150,21 +150,25 @@ public class Gun : MonoBehaviour
 
     public bool Reload()
     {
-        if (ammoRemain <= 0 || currentState == State.Reloading)
+        if (ammoRemain <= 0 || magAmmo == gundata.magCapacity || 
+            currentState == State.Reloading)
             return false;
+
+        StartCoroutine(CoReload());
+
+        return true;        
+    }
+
+    public IEnumerator CoReload()
+    {
+        currentState = State.Reloading;
+        audioSource.PlayOneShot(gundata.reloadClip);
+
+        yield return new WaitForSeconds(gundata.reloadTime); 
 
         var reloadAmmo = Mathf.Min(gundata.magCapacity - magAmmo, ammoRemain);
         magAmmo += reloadAmmo;
         ammoRemain -= reloadAmmo;
-
-        currentState = State.Reloading;
-        StartCoroutine(ReloadTime());
-        return true;
-    }
-
-    public IEnumerator ReloadTime()
-    {
-        yield return new WaitForSeconds(gundata.reloadTime); 
         currentState = State.Ready;
     }
 }

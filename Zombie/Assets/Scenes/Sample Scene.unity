@@ -241,13 +241,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 1060468063}
+  gunPivot: {fileID: 1494759403}
+  leftHandMount: {fileID: 1277722166}
+  rightHandMount: {fileID: 2083301183}
 --- !u!1001 &803921776
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 381522020}
+    m_TransformParent: {fileID: 1494759403}
     m_Modifications:
     - target: {fileID: 1784282725167592, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_Name
@@ -255,15 +258,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4126983702692336, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.2
+      value: -0.136
       objectReference: {fileID: 0}
     - target: {fileID: 4126983702692336, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.967
+      value: -0.107
       objectReference: {fileID: 0}
     - target: {fileID: 4126983702692336, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.286
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 4126983702692336, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_LocalRotation.w
@@ -271,15 +274,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4126983702692336, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4126983702692336, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4126983702692336, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4126983702692336, guid: 13259943c4d634186ac994d570bb3253, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -333,6 +336,44 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 803921776}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1277722166 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4355249862128598, guid: 13259943c4d634186ac994d570bb3253,
+    type: 3}
+  m_PrefabInstance: {fileID: 803921776}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1494759402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1494759403}
+  m_Layer: 0
+  m_Name: GunPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1494759403
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494759402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.058, y: 1.106, z: 0.309}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1060468066}
+  m_Father: {fileID: 381522020}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1952513177
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +513,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b04053ea2dc49ae8eae12418134ef1, type: 3}
+--- !u!4 &2083301183 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4789895822770736, guid: 13259943c4d634186ac994d570bb3253,
+    type: 3}
+  m_PrefabInstance: {fileID: 803921776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2107148480
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +760,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4831827357776033952, guid: 03b0fe65038feb34cb079df174fa1727,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1060468066}
+      addedObject: {fileID: 1494759403}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4831827357776389248, guid: 03b0fe65038feb34cb079df174fa1727,
         type: 3}
