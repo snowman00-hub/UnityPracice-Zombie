@@ -171,4 +171,9 @@ public class Gun : MonoBehaviour
         ammoRemain -= reloadAmmo;
         currentState = State.Ready;
     }
+
+    public void AddAmmo(int amount)
+    {
+        ammoRemain = Mathf.Min(ammoRemain + amount, gundata.startAmmoRemain);
+    }
 }

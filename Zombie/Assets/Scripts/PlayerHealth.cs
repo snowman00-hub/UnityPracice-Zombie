@@ -65,4 +65,10 @@ public class PlayerHealth : LivingEntity
         movement.enabled = false;
         shooter.enabled = false;
     }
+
+    public void Heal(float amount)
+    {
+        Health = Mathf.Max(MaxHealth, Health + amount);
+        healthSlider.value = Health / MaxHealth;
+    }
 }
