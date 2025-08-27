@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : LivingEntity
@@ -6,6 +7,7 @@ public class PlayerHealth : LivingEntity
     private static readonly int hashDie = Animator.StringToHash("Die");
 
     public Slider healthSlider;
+    public event Action DieEvent;
 
     public AudioClip deathClip;
     public AudioClip hitClip;
@@ -38,10 +40,6 @@ public class PlayerHealth : LivingEntity
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            OnDamage(10f,Vector3.zero,Vector3.zero);
-        }
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
@@ -64,6 +62,7 @@ public class PlayerHealth : LivingEntity
 
         movement.enabled = false;
         shooter.enabled = false;
+        DieEvent?.Invoke();
     }
 
     public void Heal(float amount)
