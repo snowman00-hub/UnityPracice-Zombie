@@ -6,7 +6,6 @@ public class PlayerHealth : LivingEntity
 {
     private static readonly int hashDie = Animator.StringToHash("Die");
 
-    public GameManager gameManager;
     public Slider healthSlider;
 
     public AudioClip deathClip;

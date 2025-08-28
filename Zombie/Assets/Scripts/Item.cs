@@ -12,7 +12,8 @@ public class Item : MonoBehaviour, IItem
     }
 
     public Types itemType;
-    public int value = 10;   
+    public int value = 10;
+    public event Action OnUse;
 
     public void Use(GameObject other)
     {
@@ -20,8 +21,7 @@ public class Item : MonoBehaviour, IItem
         {
             case Types.Coin:
             {
-                var playerHealth = other.GetComponent<PlayerHealth>();
-                playerHealth?.gameManager?.AddScore(value);
+                OnUse?.Invoke();
             }
             break;
             case Types.Ammo:
