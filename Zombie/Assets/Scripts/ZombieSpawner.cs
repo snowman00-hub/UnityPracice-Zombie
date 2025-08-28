@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class ZombieSpawner : MonoBehaviour
 {
+    public UiManager uiManager;
+
     public Zombie prefab;
 
     public ZombieData[] zombieDatas;
@@ -14,7 +16,7 @@ public class ZombieSpawner : MonoBehaviour
 
     private void Update()
     {
-        if(zombies.Count == 0)
+        if (zombies.Count == 0)
         {
             SpawnWave();
         }
@@ -28,6 +30,8 @@ public class ZombieSpawner : MonoBehaviour
         {
             CreateZombie();
         }
+
+        uiManager.SetWaveInfo(wave, zombies.Count);
     }
 
     public void CreateZombie()
@@ -38,6 +42,7 @@ public class ZombieSpawner : MonoBehaviour
         zombies.Add(zombie);
 
         zombie.OnDeath += () => zombies.Remove(zombie);
+        zombie.OnDeath += () => uiManager.SetWaveInfo(wave, zombies.Count);
         zombie.OnDeath += () => Destroy(zombie.gameObject, 5f);
     }
 }

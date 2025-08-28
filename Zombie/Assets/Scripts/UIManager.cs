@@ -12,7 +12,6 @@ public class UiManager : MonoBehaviour
 
     public void OnEnable()
     {
-        SetAmmoText(0, 0);
         SetUpdateScore(0);
         SetWaveInfo(0, 0);
         SetActiveGameOverUi(false);

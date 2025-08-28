@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public UiManager uiManager;
+
     public enum State
     {
         Ready,
@@ -62,6 +64,8 @@ public class Gun : MonoBehaviour
         lastFireTime = 0f;
 
         CurrentState = State.Ready;
+
+        uiManager.SetAmmoText(magAmmo, ammoRemain);
     }
 
     private void Update()
@@ -143,7 +147,8 @@ public class Gun : MonoBehaviour
         StartCoroutine(CoShotEffect(hitPosition));
 
         --magAmmo;
-        if(magAmmo == 0)
+        uiManager.SetAmmoText(magAmmo, ammoRemain);
+        if (magAmmo == 0)
         {
             CurrentState = State.Empty;
         }
@@ -170,11 +175,14 @@ public class Gun : MonoBehaviour
         var reloadAmmo = Mathf.Min(gundata.magCapacity - magAmmo, ammoRemain);
         magAmmo += reloadAmmo;
         ammoRemain -= reloadAmmo;
+        uiManager.SetAmmoText(magAmmo, ammoRemain);
+
         currentState = State.Ready;
     }
 
     public void AddAmmo(int amount)
     {
         ammoRemain = Mathf.Min(ammoRemain + amount, gundata.startAmmoRemain);
+        uiManager.SetAmmoText(magAmmo, ammoRemain);
     }
 }
