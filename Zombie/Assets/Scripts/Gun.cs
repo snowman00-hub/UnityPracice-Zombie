@@ -32,7 +32,6 @@ public class Gun : MonoBehaviour
     }
 
     public GunData gundata;
-    public event Action<int, int> AmmoCountChanged;
 
     public ParticleSystem muzzleEffect;
     public ParticleSystem shellEffect;
@@ -148,8 +147,6 @@ public class Gun : MonoBehaviour
         {
             CurrentState = State.Empty;
         }
-
-        AmmoCountChanged?.Invoke(magAmmo, ammoRemain);
     }
 
     public bool Reload()
@@ -174,12 +171,10 @@ public class Gun : MonoBehaviour
         magAmmo += reloadAmmo;
         ammoRemain -= reloadAmmo;
         currentState = State.Ready;
-        AmmoCountChanged?.Invoke(magAmmo, ammoRemain);
     }
 
     public void AddAmmo(int amount)
     {
         ammoRemain = Mathf.Min(ammoRemain + amount, gundata.startAmmoRemain);
-        AmmoCountChanged?.Invoke(magAmmo, ammoRemain);
     }
 }

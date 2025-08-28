@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  traceDistance: 8
+  traceDistance: 16
   attackDistance: 1
   damage: 10
   attackInterval: 0.5
@@ -241,6 +241,7 @@ MonoBehaviour:
   bloodSprayEffect: {fileID: 8068989133371490317}
   hitClip: {fileID: 8300000, guid: c3d8accfc053f004ca665a1c8c4a6919, type: 3}
   deathClip: {fileID: 8300000, guid: b86f03005ed394911b43027aeaaedeb7, type: 3}
+  zombieRenderer: {fileID: 4263913547869550910}
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -294,6 +295,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!137 &4263913547869550910 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 13700000, guid: 6bc76eedb6629574a83870562bc0c4ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 4263913547864240798}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7873876732254848387
 PrefabInstance:
   m_ObjectHideFlags: 0

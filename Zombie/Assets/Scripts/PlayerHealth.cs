@@ -7,7 +7,6 @@ public class PlayerHealth : LivingEntity
     private static readonly int hashDie = Animator.StringToHash("Die");
 
     public Slider healthSlider;
-    public event Action DieEvent;
 
     public AudioClip deathClip;
     public AudioClip hitClip;
@@ -62,7 +61,6 @@ public class PlayerHealth : LivingEntity
 
         movement.enabled = false;
         shooter.enabled = false;
-        DieEvent?.Invoke();
     }
 
     public void Heal(float amount)

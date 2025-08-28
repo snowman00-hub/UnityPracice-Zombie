@@ -68,6 +68,8 @@ public class Zombie : LivingEntity
     private CapsuleCollider capsuleCollider;
     private AudioSource audioSource;
 
+    public Renderer zombieRenderer;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -160,6 +162,14 @@ public class Zombie : LivingEntity
 
         capsuleCollider.enabled = true;
         currentStatus = Status.Idle;
+    }
+
+    public void Setup(ZombieData data)
+    {
+        MaxHealth = data.maxHP;
+        damage = data.damage;
+        agent.speed = data.speed;
+        zombieRenderer.material.color = data.skinColor;
     }
 
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
